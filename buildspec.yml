@@ -1,0 +1,29 @@
+version: 0.2
+
+phases:
+
+  install:
+    on-failure: ABORT
+    runtime-versions:
+      nodejs: 18
+
+  pre_build:
+    on-failure: ABORT
+    commands:
+      - echo Building version ${CODEBUILD_BUILD_NUMBER}
+  
+  build:
+    on-failure: ABORT
+    commands:
+      - ng build
+
+  post_build:
+    on-failure: ABORT
+    commands:
+      - "echo Build finished"
+
+artifacts:
+  files:
+    - "**/*"
+  base-directory: 'dist'
+  discard-paths: yes
