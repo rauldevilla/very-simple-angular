@@ -14,6 +14,8 @@ phases:
     on-failure: ABORT
     commands:
       - echo Building version ${CODEBUILD_BUILD_NUMBER}
+      - APP_NAME=$(jq -r '.name' package.json)
+      - echo "The application name from package.json is ${APP_NAME}"
   
   build:
     on-failure: ABORT
@@ -28,5 +30,5 @@ phases:
 artifacts:
   files:
     - "**/*"
-  base-directory: 'dist/e-commerce-web-app'
+  base-directory: 'dist/${APP_NAME}'
   discard-paths: no
